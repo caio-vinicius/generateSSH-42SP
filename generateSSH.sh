@@ -13,7 +13,7 @@ if [[ -s keys/public_key.pub ]] && [[ -s keys/private_key ]]; then
 	echo -e " - Go to profile.intra.42.fr > Settings > SSH Key > New SSH Key > CTRL + V\e[0m"
 	echo " - If it isnt, you can copy here: "
 	cat keys/public_key.pub
-	echo -e "\e[31m - NOTE: 2 keys was generated, above is the public key that locate at keys/sshkey.pub. The private key locate at keys/sshkey never share with anyone.\e[0m"
+	echo -e "\e[31m - DISCLAIMER: 2 keys was generated, above is the public key that locate at keys/public_key.pub. The private key locate at keys/private_key dont never share with anyone.\e[0m"
 else
 	echo -e "\e[41mSomething went wrong, I couldn't generate your SSH key."
 fi
