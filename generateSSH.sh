@@ -17,5 +17,3 @@ if [[ -s keys/public_key.pub ]] && [[ -s keys/private_key ]]; then
 else
 	echo -e "\e[41mSomething went wrong, I couldn't generate your SSH key."
 fi
-
-
