@@ -11,8 +11,10 @@ if [[ -s keys/public_key.pub ]] && [[ -s keys/private_key ]]; then
 	cat keys/public_key.pub | xclip -selection clipboard
 	echo -e "\e[34m - Key is already on your CTRL+V, enjoy:"
 	echo -e " - Go to profile.intra.42.fr > Settings > SSH Key > New SSH Key > CTRL + V\e[0m"
-	echo " - If it isnt, you can copy here: "
+	echo " - If it isnt on your CTRL + V yet, you can copy here: "
+	echo " - "
 	cat keys/public_key.pub
+	echo " - "
 	echo -e "\e[31m - DISCLAIMER: 2 keys was generated, above is the public key that locate at keys/public_key.pub. The private key locate at keys/private_key dont never share with anyone.\e[0m"
 else
 	echo -e "\e[41mSomething went wrong, I couldn't generate your SSH key."
