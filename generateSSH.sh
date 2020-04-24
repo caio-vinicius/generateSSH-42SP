@@ -1,21 +1,43 @@
 #!/bin/bash
 
-echo " - Generate SSH key..."
-mkdir -p keys
-ssh-keygen -b 2048 -t rsa -f ./keys/sshkey -N "" -q
-mv keys/sshkey.pub keys/public_key.pub && mv keys/sshkey keys/private_key
-if [[ -s keys/public_key.pub ]] && [[ -s keys/private_key ]]; then
-	echo -e "\e[32m - SSH successful created!\e[0m"
-	cp keys/public_key.pub ~/.ssh/id_rsa.pub
-	cp keys/private_key ~/.ssh/id_rsa
-	cat keys/public_key.pub | xclip -selection clipboard
-	echo -e "\e[34m - Key is already on your CTRL+V, enjoy:"
-	echo -e " - Go to profile.intra.42.fr > Settings > SSH Key > New SSH Key > CTRL + V\e[0m"
-	echo " - If it isnt on your CTRL + V yet, you can copy here: "
-	echo " - "
-	cat keys/public_key.pub
-	echo " - "
-	echo -e "\e[31m - DISCLAIMER: 2 keys was generated, above is the public key that locate at keys/public_key.pub. The private key locate at keys/private_key dont never share with anyone.\e[0m"
+show_public_key()
+{
+	ssh-keygen -y -f $1 | xclip -selection clipboard &> /dev/null
+	echo " - Key is already on your CTRL + V, enjoy."
+	echo " - If it isn't on your CTRL + V yet, you can copy here: "
+	echo -e "\e[1m === START KEY === \e[0m"
+	ssh-keygen -y -f $1
+	echo -e "\e[1m === END KEY === \e[0m"
+	echo " - Go to profile.intra.42.fr > Settings > SSH Key > New SSH Key > CTRL + V."	
+}
+
+generate_ssh()
+{
+	ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -N "" -q <<< y &> /dev/null
+	if [[ -s ~/.ssh/id_rsa.pub ]] && [[ -s ~/.ssh/id_rsa ]]; then
+		echo -e "\e[32m - SSH successful created!\e[0m"
+		show_public_key ~/.ssh/id_rsa
+	else
+		echo -e "\e[41mSomething went wrong, I couldn't generate your SSH key."
+	fi
+}
+
+choose_option()
+{
+	if [[ $1 = "yes" || $1 = "y" || $1 = "YES" || $1 = "Y" ]]; then
+		$2
+	elif [[ $1 = "no" || $1 = "n" || $1 = "NO" || $1 = "N" ]]; then
+		$3 $4
+	else
+		echo " - I can't understand what you're saying."
+	fi
+}
+
+echo " - Working on SSH pair key..."
+if [[ -s ~/.ssh/id_rsa && -s ~/.ssh/id_rsa.pub ]]; then
+	echo " - Seems like you alredy have SSH pair keys on your system."
+	read -p " - Did you want generate a new pair? If don't I will extract your public key (yes/no): " option
+	choose_option $option generate_ssh show_public_key ~/.ssh/id_rsa
 else
-	echo -e "\e[41mSomething went wrong, I couldn't generate your SSH key."
+	generate_ssh
 fi
