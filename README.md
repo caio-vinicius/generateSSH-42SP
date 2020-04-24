@@ -11,10 +11,6 @@ git clone https://github.com/caio-vinicius/generateSSH-42SP
 cd generateSSH-42SP
 ```
 ```
-./generateSSH.sh
-```
-or
-```
 bash generateSSH.sh
 ```
 
@@ -22,4 +18,7 @@ bash generateSSH.sh
 
 Linux based-system
 
+#### Changelog 1.0.2
 
+- Script don't override your already setup SSH pair key, it asks if you want generate another or show your public key
+- Dont generate anymore keys annoying keys folder
