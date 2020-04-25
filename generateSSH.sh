@@ -11,9 +11,9 @@ show_public_key()
 	ssh-keygen -y -f $1 | xclip -selection clipboard &> /dev/null
 	echo " - Key is already on your CTRL + V, enjoy."
 	echo " - Maybe it isn't on your CTRL + V yet, so you can copy here: "
-	echo -e "\e[1m === START KEY === \e[0m"
+	color_message 1 " === START KEY === "
 	ssh-keygen -y -f $1
-	echo -e "\e[1m === END KEY === \e[0m"
+	color_message 1 " === END KEY === "
 	echo " - Go to profile.intra.42.fr > Settings > SSH Key > New SSH Key > CTRL + V."	
 }
 
