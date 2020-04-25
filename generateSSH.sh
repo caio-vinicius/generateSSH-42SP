@@ -2,7 +2,7 @@
 
 color_message()
 {
-	echo -e "\e[$1m - $2\e[0m"
+	echo -e "\033[$1m - $2\033[0m"
 }
 
 show_public_key()
